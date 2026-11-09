@@ -84,7 +84,7 @@ function renderStockInsights(items){
  el('insightStock').textContent=fmt(base.length);el('insightValue').textContent=fmt(base.reduce((s,x)=>s+x.value,0))+' บาท';
  const allUsage=usageRows.filter(z=>z.u);const usageComplete=allUsage.length===base.length&&base.length>0;
  const qtyByUnit=new Map();for(const z of allUsage)qtyByUnit.set(z.x.unit,(qtyByUnit.get(z.x.unit)||0)+z.u.qty);const qtySummary=[...qtyByUnit].filter(([,qty])=>qty>0).sort((a,b)=>b[1]-a[1]);
- el('insightRounds').textContent=usageComplete?fmt(allUsage.reduce((s,z)=>s+z.u.rounds,0)):'อัปโหลด Stock Card ใหม่เพื่อดู';el('insightUsage').textContent=usageComplete?(qtySummary.slice(0,3).map(([unit,qty])=>fmt(qty)+' '+unit).join(' · ')+(qtySummary.length>3?' · อีก '+(qtySummary.length-3)+' หน่วย':'')+' · '+fmt(allUsage.reduce((s,z)=>s+z.u.value,0))+' บาท'):'ข้อมูลช่วงเวลาไม่มีในชุดนำเข้าปัจจุบัน';el('usageBadge').textContent=usageComplete?'ย้อนหลัง '+d+' วัน':'ต้องนำเข้าไฟล์ใหม่เพื่อคำนวณย้อนหลัง '+d+' วัน';
+ el('insightRounds').textContent=usageComplete?fmt(allUsage.reduce((s,z)=>s+z.u.rounds,0)):'ต้องอัปเดตตัวคำนวณก่อน';el('insightUsage').textContent=usageComplete?(qtySummary.slice(0,3).map(([unit,qty])=>fmt(qty)+' '+unit).join(' · ')+(qtySummary.length>3?' · อีก '+(qtySummary.length-3)+' หน่วย':'')+' · '+fmt(allUsage.reduce((s,z)=>s+z.u.value,0))+' บาท'):'ข้อมูลช่วงเวลาไม่มีในชุดนำเข้าปัจจุบัน';el('usageBadge').textContent=usageComplete?'ย้อนหลัง '+d+' วัน':'ต้องอัปเดตตัวคำนวณและนำเข้า Stock Card ใหม่เพื่อดูย้อนหลัง '+d+' วัน';
  let rows=base;
  if(kind==='age') rows=base.filter(x=>x.stock>0&&x.ageDays!=null).sort((a,b)=>b.ageDays-a.ageDays||b.value-a.value).slice(0,10);
  else if(el('analysisGroup').value!=='itemWarehouse'){
